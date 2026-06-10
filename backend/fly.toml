@@ -1,0 +1,28 @@
+# Fly.io config for RightsAI Nigeria backend.
+# Change `app` to a globally-unique name if `fly launch` says it's taken.
+app = "rightsai-nigeria"
+primary_region = "jnb"  # Johannesburg (closest Fly region to Nigeria)
+
+[build]
+  dockerfile = "Dockerfile"
+
+[http_service]
+  internal_port = 8000
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+
+[checks.health]
+  type = "http"
+  port = 8000
+  method = "GET"
+  path = "/health"
+  interval = "15s"
+  timeout = "5s"
+  grace_period = "10s"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "256mb"
+  cpus = 1
