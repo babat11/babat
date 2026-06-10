@@ -1,0 +1,15 @@
+# Render Blueprint for RightsAI Nigeria backend.
+# In Render: New + > Blueprint > connect the babat11/babat repo. Render reads this file.
+services:
+  - type: web
+    name: rightsai-nigeria-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      # Optional: set to enable live LLM responses. Leave unset for offline mode.
+      - key: OPENAI_API_KEY
+        sync: false
